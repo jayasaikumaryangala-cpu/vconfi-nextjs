@@ -348,31 +348,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== CLIENTS ===== */}
-      <section className="py-14 md:py-20 overflow-hidden" style={{ background: d ? '#0f0f0f' : '#fafbff' }} id="clients">
-        <Reveal>
-          <div className="text-center mb-8 md:mb-12 px-6">
-            <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] mb-3 block" style={{ color: ac }}>Trusted By</span>
-            <h2 className="text-xl md:text-3xl font-black tracking-tight" style={{ color: d ? '#e8e8e8' : '#0a1e3d' }}>OUR CLIENTS</h2>
-          </div>
-        </Reveal>
-        <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-28 z-10" style={{ background: `linear-gradient(to right, ${d ? '#0f0f0f' : '#fafbff'}, transparent)` }}></div>
-          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-28 z-10" style={{ background: `linear-gradient(to left, ${d ? '#0f0f0f' : '#fafbff'}, transparent)` }}></div>
-          <div className="flex w-max items-center" style={{ animation: 'marquee 20s linear infinite' }}>
-            {[1,2,3,4].map(g => (
-              <div key={g} className="flex gap-12 md:gap-16 items-center px-6 md:px-8">
-                <div className="p-3 md:p-4 rounded-xl" style={{ background: d ? '#1a1a1a' : '#fff', border: `1px solid ${d ? '#2a2a2a' : '#e8ecf0'}` }}>
-                  <img src="/images/client1.png" alt="Anantha Technologies" className="h-8 md:h-12 object-contain" style={{ filter: d ? 'brightness(1.5) contrast(1.1)' : 'none' }} />
+     {/* ===== CLIENTS ===== */}
+        <section className="py-14 md:py-20 overflow-hidden" style={{ background: d ? '#0f0f0f' : '#fafbff' }} id="clients">
+          <Reveal>
+            <div className="text-center mb-8 md:mb-12 px-6">
+              <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] mb-3 block" style={{ color: ac }}>Trusted By</span>
+              <h2 className="text-xl md:text-3xl font-black tracking-tight" style={{ color: d ? '#e8e8e8' : '#0a1e3d' }}>OUR CLIENTS</h2>
+            </div>
+          </Reveal>
+          <div className="relative">
+            <div className="absolute left-0 top-0 bottom-0 w-16 md:w-28 z-10" style={{ background: `linear-gradient(to right, ${d ? '#0f0f0f' : '#fafbff'}, transparent)` }}></div>
+            <div className="absolute right-0 top-0 bottom-0 w-16 md:w-28 z-10" style={{ background: `linear-gradient(to left, ${d ? '#0f0f0f' : '#fafbff'}, transparent)` }}></div>
+            <div className="flex w-max items-center" style={{ animation: 'marquee 20s linear infinite' }}>
+              {[1, 2, 3, 4].map(g => (
+                <div key={g} className="flex gap-12 md:gap-16 items-center px-6 md:px-8">
+                  <div className="p-3 md:p-4 rounded-xl" style={{ background: '#fff', border: `1px solid ${d ? '#fff' : '#e8ecf0'}` }}>
+                    <img src="/images/client1.png" alt="Anantha Technologies" className="h-8 md:h-12 object-contain" style={{ filter: d ? 'none' : 'brightness(1.5) contrast(1.1)' }} />
+                  </div>
+                  <div className="p-3 md:p-4 rounded-xl" style={{ background: '#fff', border: `1px solid ${d ? '#fff' : '#e8ecf0'}` }}>
+                    <img src="/images/client2.png" alt="Aditya Hospital" className="h-8 md:h-12 object-contain" style={{ filter: d ? 'none' : 'brightness(1.5) contrast(1.1)' }} />
+                  </div>
                 </div>
-                <div className="p-3 md:p-4 rounded-xl" style={{ background: d ? '#1a1a1a' : '#fff', border: `1px solid ${d ? '#2a2a2a' : '#e8ecf0'}` }}>
-                  <img src="/images/client2.png" alt="Aditya Hospital" className="h-8 md:h-12 object-contain" style={{ filter: d ? 'brightness(1.5) contrast(1.1)' : 'none' }} />
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* ===== FAQ ===== */}
       <section className="py-16 md:py-28 px-4 md:px-6" style={{ background: d ? '#0a0a0a' : '#fff' }} id="faq">

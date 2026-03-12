@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Disallow: /_next/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://vconfi.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1

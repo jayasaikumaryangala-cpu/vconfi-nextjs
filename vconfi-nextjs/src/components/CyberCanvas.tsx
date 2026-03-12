@@ -26,11 +26,11 @@ export default function CyberCanvas() {
     // 3D projection
     const project = (x: number, y: number, z: number, cx: number, cy: number, rY: number, rX: number) => {
       const cosY = Math.cos(rY), sinY = Math.sin(rY);
-      let x1 = x * cosY - z * sinY;
-      let z1 = x * sinY + z * cosY;
+      const x1 = x * cosY - z * sinY;
+      const z1 = x * sinY + z * cosY;
       const cosX = Math.cos(rX), sinX = Math.sin(rX);
-      let y1 = y * cosX - z1 * sinX;
-      let z2 = y * sinX + z1 * cosX;
+      const y1 = y * cosX - z1 * sinX;
+      const z2 = y * sinX + z1 * cosX;
       const perspective = 600;
       const scale = perspective / (perspective + z2);
       return { x: cx + x1 * scale, y: cy + y1 * scale, z: z2, s: scale };
@@ -39,6 +39,13 @@ export default function CyberCanvas() {
     const draw = (time: number) => {
       ctx.clearRect(0, 0, w, h);
       const t = time * 0.001;
+      const isDark = document.documentElement.classList.contains('dark');
+      
+      // Make dark mode colors pop more
+      const mainColor = isDark ? '16, 185, 129' : '10, 74, 138'; // Emerald in dark, Blue in light
+      const streamColor = isDark ? '16, 185, 129' : '6, 182, 212';
+      const highlightColor = isDark ? '6, 182, 212' : '10, 100, 188';
+
 
       const cx = w > 768 ? w * 0.62 : w * 0.5;
       const cy = h * 0.48;
@@ -58,7 +65,7 @@ export default function CyberCanvas() {
           if (p.z < -R * 0.5) continue;
           if (i === 0 || p.z < -R * 0.3) { ctx.moveTo(p.x, p.y); } else { ctx.lineTo(p.x, p.y); }
         }
-        ctx.strokeStyle = `rgba(10, 74, 138, ${0.18 + Math.abs(lat) * 0.02})`;
+        ctx.strokeStyle = `rgba(${mainColor}, ${isDark ? 0.6 : 0.3} + ${Math.abs(lat) * (isDark ? 0.05 : 0.03)})`;
         ctx.lineWidth = lat === 0 ? 1.2 : 0.7;
         ctx.stroke();
       }
@@ -76,7 +83,7 @@ export default function CyberCanvas() {
           if (p.z < -R * 0.5) { started = false; continue; }
           if (!started) { ctx.moveTo(p.x, p.y); started = true; } else { ctx.lineTo(p.x, p.y); }
         }
-        ctx.strokeStyle = `rgba(10, 74, 138, 0.15)`;
+        ctx.strokeStyle = `rgba(${mainColor}, ${isDark ? 0.5 : 0.25})`;
         ctx.lineWidth = 0.6;
         ctx.stroke();
       }
@@ -95,7 +102,7 @@ export default function CyberCanvas() {
           // Dot
           ctx.beginPath();
           ctx.arc(p.x, p.y, 2 * p.s, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(10, 74, 138, ${alpha})`;
+          ctx.fillStyle = `rgba(${mainColor}, ${isDark ? alpha + 0.4 : alpha + 0.2})`;
           ctx.fill();
 
           // Pulse glow on selected nodes
@@ -103,7 +110,7 @@ export default function CyberCanvas() {
             const glowR = 8 + Math.sin(t * 3 + lat + lon) * 3;
             ctx.beginPath();
             ctx.arc(p.x, p.y, glowR * p.s, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(10, 100, 188, ${0.08 + Math.sin(t * 2) * 0.04})`;
+            ctx.fillStyle = `rgba(${highlightColor}, ${isDark ? 0.5 + Math.sin(t * 2) * 0.15 : 0.2 + Math.sin(t * 2) * 0.08})`;
             ctx.fill();
           }
         }
@@ -124,7 +131,7 @@ export default function CyberCanvas() {
             if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
           }
         }
-        ctx.strokeStyle = `rgba(6, 182, 212, ${0.25 + Math.sin(t + s) * 0.1})`;
+        ctx.strokeStyle = `rgba(${streamColor}, ${(isDark ? 0.9 : 0.5) + Math.sin(t + s) * (isDark ? 0.3 : 0.2)})`;
         ctx.lineWidth = 1.5;
         ctx.stroke();
       }
@@ -137,7 +144,7 @@ export default function CyberCanvas() {
         const p = project(orbitR * Math.cos(angle), 0, orbitR * Math.sin(angle), cx, cy, rotY, rotX + 0.5);
         if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
       }
-      ctx.strokeStyle = 'rgba(10, 74, 138, 0.08)';
+      ctx.strokeStyle = `rgba(${mainColor}, ${isDark ? 0.4 : 0.2})`;
       ctx.lineWidth = 1;
       ctx.setLineDash([4, 8]);
       ctx.stroke();
@@ -148,11 +155,11 @@ export default function CyberCanvas() {
       const satP = project(R * 1.25 * Math.cos(satAngle), 0, R * 1.25 * Math.sin(satAngle), cx, cy, rotY, rotX + 0.5);
       ctx.beginPath();
       ctx.arc(satP.x, satP.y, 4, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(6, 182, 212, 0.6)';
+      ctx.fillStyle = `rgba(${streamColor}, ${isDark ? 1.0 : 0.8})`;
       ctx.fill();
       ctx.beginPath();
       ctx.arc(satP.x, satP.y, 10, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(6, 182, 212, 0.1)';
+      ctx.fillStyle = `rgba(${streamColor}, ${isDark ? 0.5 : 0.3})`;
       ctx.fill();
 
       animId = requestAnimationFrame(draw);
